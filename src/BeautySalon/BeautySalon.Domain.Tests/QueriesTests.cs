@@ -1,10 +1,19 @@
-﻿namespace BeautySalon.Domain.Tests;
+﻿using BeautySalon.Domain.Data;
+
+namespace BeautySalon.Domain.Tests;
 
 /// <summary>
 /// Тесты, в соответствии с заданием.
 /// </summary>
-public class QueriesTests
+public class QueriesTests : IClassFixture<TestDataFixture>
 {
+    private readonly TestDataFixture _fixture;
+
+    public QueriesTests(TestDataFixture fixture)
+    {
+        _fixture = fixture;
+    }
+
     /// <summary>
     /// Вывести информацию о всех мастерах, стаж работы которых не менее 5 лет.
     /// </summary>
