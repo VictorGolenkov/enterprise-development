@@ -32,7 +32,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [InlineData("Алексеева", false)]
     public void Test_1_MastersWithExperienceFiveYearsOrMore(string lastName, bool expected)
     {
-        var result = TestData.Masters
+        var result = _fixture.Masters
             .Where(m => m.ExperienceYears >= 5)
             .Any(m => m.LastName == lastName);
 
@@ -51,7 +51,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [InlineData("Смирнов", 3)]
     public void Test_2_MasterIdleWindows(string lastName, int expectedWindowsCount)
     {
-        var masterAppointments = TestData.Appointments
+        var masterAppointments = _fixture.Appointments
             .Where(a => a.Master.LastName == lastName)
             .OrderBy(a => a.AppointmentDate)
             .ToList();
@@ -79,7 +79,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [Fact]
     public void Test_3_TopFivePopularServices()
     {
-        var popularServices = TestData.Appointments
+        var popularServices = _fixture.Appointments
             .GroupBy(a => a.Service.Name)
             .Select(g => (ServiceName: g.Key, Count: g.Count()))
             .OrderByDescending(x => x.Count)
@@ -104,7 +104,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [Fact]
     public void Test_4_RepeatAppointmentsLastMonth()
     {
-        var repeats = TestData.Appointments
+        var repeats = _fixture.Appointments
             .Where(a =>
             a.AppointmentDate >= DateTime.Today.AddMonths(-1) &&
             a.AppointmentDate <= DateTime.Today)
@@ -129,7 +129,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [Fact]
     public void Test_5_ClientsWithMultipleMastersOrderedByBirthDate()
     {
-        var result = TestData.Appointments
+        var result = _fixture.Appointments
             .GroupBy(a => a.Client, a => a.Master)
             .Where(g => g.Distinct().Count() > 1)
             .OrderBy(g => g.Key.BirthDate)
