@@ -10,6 +10,11 @@ namespace BeautySalon.Domain.Data;
 /// </summary>
 public class TestDataFixture
 {
+    /// <summary>
+    /// Фиксированное время и дата, для детерминированности тестов.
+    /// </summary>
+    public DateTime BaseDate { get; } = new DateTime(2026, 11, 19, 14, 0, 0);
+
     public List<Client> Clients { get; }
     public List<Master> Masters { get; }
     public List<Service> Services { get; }
@@ -17,6 +22,8 @@ public class TestDataFixture
 
     public TestDataFixture()
     {
+
+
         Clients = new List<Client>
         {
             new Client {
@@ -294,7 +301,7 @@ public class TestDataFixture
                 Client = Clients[0],
                 Master = Masters[0],
                 Service = Services[0],
-                AppointmentDate = DateTime.Today.AddDays(-10).AddHours(10),
+                AppointmentDate = BaseDate.AddDays(-10).AddHours(10),
                 IsRegularClient = true
             },
             new Appointment
@@ -302,7 +309,7 @@ public class TestDataFixture
                 Client = Clients[1],
                 Master = Masters[0],
                 Service = Services[6],
-                AppointmentDate = DateTime.Today.AddDays(-10).AddHours(13),
+                AppointmentDate = BaseDate.AddDays(-10).AddHours(13),
                 IsRegularClient = true
             },
             new Appointment
@@ -310,7 +317,7 @@ public class TestDataFixture
                 Client = Clients[2],
                 Master = Masters[0],
                 Service = Services[0],
-                AppointmentDate = DateTime.Today.AddDays(-9).AddHours(9),
+                AppointmentDate = BaseDate.AddDays(-9).AddHours(9),
                 IsRegularClient = false
             },
 
@@ -319,7 +326,7 @@ public class TestDataFixture
                 Client = Clients[0],
                 Master = Masters[2],
                 Service = Services[1],
-                AppointmentDate = DateTime.Today.AddDays(-5).AddHours(12),
+                AppointmentDate = BaseDate.AddDays(-5).AddHours(12),
                 IsRegularClient = true
             },
             new Appointment
@@ -327,7 +334,7 @@ public class TestDataFixture
                 Client = Clients[0],
                 Master = Masters[3],
                 Service = Services[4],
-                AppointmentDate = DateTime.Today.AddDays(-2).AddHours(15),
+                AppointmentDate = BaseDate.AddDays(-2).AddHours(15),
                 IsRegularClient = true
             },
             new Appointment
@@ -335,7 +342,7 @@ public class TestDataFixture
                 Client = Clients[3],
                 Master = Masters[2],
                 Service = Services[2],
-                AppointmentDate = DateTime.Today.AddDays(-8).AddHours(11),
+                AppointmentDate = BaseDate.AddDays(-8).AddHours(11),
                 IsRegularClient = true
             },
             new Appointment
@@ -343,7 +350,7 @@ public class TestDataFixture
                 Client = Clients[1],
                 Master = Masters[1],
                 Service = Services[0],
-                AppointmentDate = DateTime.Today.AddDays(-15).AddHours(14),
+                AppointmentDate = BaseDate.AddDays(-15).AddHours(14),
                 IsRegularClient = true
             },
             new Appointment
@@ -351,7 +358,7 @@ public class TestDataFixture
                 Client = Clients[1],
                 Master = Masters[2],
                 Service = Services[1],
-                AppointmentDate = DateTime.Today.AddDays(-32).AddHours(10),
+                AppointmentDate = BaseDate.AddDays(-32).AddHours(10),
                 IsRegularClient = true
             },
             new Appointment
@@ -359,7 +366,7 @@ public class TestDataFixture
                 Client = Clients[4],
                 Master = Masters[5],
                 Service = Services[3],
-                AppointmentDate = DateTime.Today.AddDays(-1).AddHours(16),
+                AppointmentDate = BaseDate.AddDays(-1).AddHours(16),
                 IsRegularClient = true
             },
             new Appointment
@@ -367,7 +374,7 @@ public class TestDataFixture
                 Client = Clients[4],
                 Master = Masters[5],
                 Service = Services[6],
-                AppointmentDate = DateTime.Today.AddHours(12),
+                AppointmentDate = BaseDate.AddHours(12),
                 IsRegularClient = true
             },
             new Appointment
@@ -375,7 +382,7 @@ public class TestDataFixture
                 Client = Clients[5],
                 Master = Masters[4],
                 Service = Services[5],
-                AppointmentDate = DateTime.Today.AddDays(-25).AddHours(10),
+                AppointmentDate = BaseDate.AddDays(-25).AddHours(10),
                 IsRegularClient = false
             },
             new Appointment
@@ -383,7 +390,7 @@ public class TestDataFixture
                 Client = Clients[6],
                 Master = Masters[0],
                 Service = Services[0],
-                AppointmentDate = DateTime.Today.AddDays(-2).AddHours(18),
+                AppointmentDate = BaseDate.AddDays(-2).AddHours(18),
                 IsRegularClient = true
             },
             new Appointment
@@ -391,7 +398,7 @@ public class TestDataFixture
                 Client = Clients[7],
                 Master = Masters[1],
                 Service = Services[7],
-                AppointmentDate = DateTime.Today.AddDays(-3).AddHours(11),
+                AppointmentDate = BaseDate.AddDays(-3).AddHours(11),
                 IsRegularClient = false
             },
             new Appointment
@@ -399,7 +406,7 @@ public class TestDataFixture
                 Client = Clients[8],
                 Master = Masters[2],
                 Service = Services[1],
-                AppointmentDate = DateTime.Today.AddDays(-4).AddHours(13),
+                AppointmentDate = BaseDate.AddDays(-4).AddHours(13),
                 IsRegularClient = true
             },
             new Appointment
@@ -407,7 +414,7 @@ public class TestDataFixture
                 Client = Clients[9],
                 Master = Masters[0],
                 Service = Services[0],
-                AppointmentDate = DateTime.Today.AddDays(-6).AddHours(12),
+                AppointmentDate = BaseDate.AddDays(-6).AddHours(12),
                 IsRegularClient = false
             }
         };

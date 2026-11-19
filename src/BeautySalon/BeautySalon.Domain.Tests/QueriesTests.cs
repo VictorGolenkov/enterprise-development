@@ -106,8 +106,8 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     {
         var repeats = _fixture.Appointments
             .Where(a =>
-            a.AppointmentDate >= DateTime.Today.AddMonths(-1) &&
-            a.AppointmentDate <= DateTime.Today)
+            a.AppointmentDate >= _fixture.BaseDate.AddMonths(-1) &&
+            a.AppointmentDate <= _fixture.BaseDate)
             .GroupBy(a => a.Client)
             .Where(g => g.Count() > 1)
             .Select(g => (ClientName: g.Key.FullName, Count: g.Count()))
