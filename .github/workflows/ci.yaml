@@ -26,4 +26,4 @@ jobs:
       run: dotnet build src/BeautySalon/BeautySalon.slnx --no-restore --configuration Release
 
     - name: Test
-      run: dotnet test src/BeautySalon/BeautySalon.slnx --no-build --configuration Release --verbosity normal
+      run: dotnet test --solution src/BeautySalon/BeautySalon.slnx --no-build --configuration Release
