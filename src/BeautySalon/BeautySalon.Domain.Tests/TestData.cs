@@ -13,7 +13,7 @@ public static class TestData
             Patronymic = "Иванович",
             Gender = Gender.Male,
             BirthDate = new DateTime(1995, 5, 10),
-            PhoneNumber = "111" 
+            PhoneNumber = "111"
         },
         new Client {
             LastName = "Петрова",
@@ -21,93 +21,93 @@ public static class TestData
             Patronymic = "Сергеевна",
             Gender = Gender.Female,
             BirthDate = new DateTime(1990, 8, 20),
-            PhoneNumber = "222" 
+            PhoneNumber = "222"
         },
-        new Client 
-        { 
+        new Client
+        {
             LastName = "Сидоров",
             FirstName = "Алексей",
             Patronymic = null,
             Gender = Gender.Male,
             BirthDate = new DateTime(1988, 2, 15),
-            PhoneNumber = "333" 
+            PhoneNumber = "333"
         },
-        new Client 
+        new Client
         {
             LastName = "Смирнова",
             FirstName = "Мария",
             Patronymic = "Игоревна",
             Gender = Gender.Female,
             BirthDate = new DateTime(2000, 11, 30),
-            PhoneNumber = "444" 
+            PhoneNumber = "444"
         },
-        new Client 
-        { 
+        new Client
+        {
             LastName = "Кузнецов",
             FirstName = "Дмитрий",
             Patronymic = "Петрович",
             Gender = Gender.Male,
             BirthDate = new DateTime(1992, 7, 5),
-            PhoneNumber = "555" 
+            PhoneNumber = "555"
         },
-        new Client 
-        { 
+        new Client
+        {
             LastName = "Соколова",
             FirstName = "Елена",
             Patronymic = "Валерьевна",
             Gender = Gender.Female,
-            BirthDate = new DateTime(1985, 3, 12), 
-            PhoneNumber = "666" 
+            BirthDate = new DateTime(1985, 3, 12),
+            PhoneNumber = "666"
         },
-        new Client 
-        { 
+        new Client
+        {
             LastName = "Попов",
             FirstName = "Андрей",
             Patronymic = "Николаевич",
             Gender = Gender.Male,
             BirthDate = new DateTime(1998, 9, 25),
-            PhoneNumber = "777" 
+            PhoneNumber = "777"
         },
-        new Client 
-        { 
+        new Client
+        {
             LastName = "Лебедева",
             FirstName = "Ольга",
             Patronymic = "Дмитриевна",
             Gender = Gender.Female,
             BirthDate = new DateTime(1993, 1, 18),
-            PhoneNumber = "888" 
+            PhoneNumber = "888"
         },
-        new Client 
-        { 
+        new Client
+        {
             LastName = "Козлов",
             FirstName = "Сергей",
             Patronymic = null,
             Gender = Gender.Male,
             BirthDate = new DateTime(1991, 6, 22),
-            PhoneNumber = "999" 
+            PhoneNumber = "999"
         },
-        new Client 
-        { 
+        new Client
+        {
             LastName = "Новикова",
             FirstName = "Татьяна",
             Patronymic = "Александровна",
             Gender = Gender.Female,
             BirthDate = new DateTime(1997, 4, 8),
-            PhoneNumber = "000" 
+            PhoneNumber = "000"
         }
     };
 
     public static readonly List<Master> Masters = new()
     {
-        new Master 
-        { 
+        new Master
+        {
             LastName = "Сидорова",
             FirstName = "Ольга",
             Patronymic = "Ивановна",
             Gender = Gender.Female,
             PassportNumber = "1001",
             Specialization = "Парикмахер",
-            ExperienceYears = 10 
+            ExperienceYears = 10
         },
         new Master
         {

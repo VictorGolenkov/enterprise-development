@@ -1,7 +1,15 @@
 ﻿namespace BeautySalon.Domain.Tests;
 
+/// <summary>
+/// Тесты, в соответствии с заданием.
+/// </summary>
 public class QueriesTests
 {
+    /// <summary>
+    /// Вывести информацию о всех мастерах, стаж работы которых не менее 5 лет.
+    /// </summary>
+    /// <param name="lastName"> Фамилия мастера </param>
+    /// <param name="expected"> Флаг того, что стаж работы не менее 5 лет </param>
     [Theory]
     [InlineData("Сидорова", true)]
     [InlineData("Кузнецов", false)]
@@ -22,6 +30,12 @@ public class QueriesTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Вывести информацию о всех окошках 💅 выбранного мастера.
+    /// (под окошком подразумевается промежуток времени между двумя записями на услугу)
+    /// </summary>
+    /// <param name="lastName"> Фамилия мастера </param>
+    /// <param name="expectedWindowsCount"> Количество окошек </param>
     [Theory]
     [InlineData("Сидорова", 4)]
     [InlineData("Кузнецов", 1)]
@@ -50,6 +64,9 @@ public class QueriesTests
         Assert.Equal(expectedWindowsCount, windowsLengths.Count);
     }
 
+    /// <summary>
+    /// Вывести топ 5 наиболее популярных услуг.
+    /// </summary>
     [Fact]
     public void Test_3_TopFivePopularServices()
     {
@@ -72,6 +89,9 @@ public class QueriesTests
         Assert.Equal(expected, popularServices);
     }
 
+    /// <summary>
+    /// Вывести информацию о количестве повторных записей клиентов за последний месяц. 
+    /// </summary>
     [Fact]
     public void Test_4_RepeatAppointmentsLastMonth()
     {
@@ -94,6 +114,9 @@ public class QueriesTests
         Assert.Equal(expected, repeats);
     }
 
+    /// <summary>
+    /// Вывести информацию о клиентах, записанных к нескольким мастерам, упорядочить по дате рождения.
+    /// </summary>
     [Fact]
     public void Test_5_ClientsWithMultipleMastersOrderedByBirthDate()
     {
