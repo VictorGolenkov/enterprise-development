@@ -4,11 +4,11 @@ namespace BeautySalon.Domain.Entities;
 
 public abstract class Person
 {
-    public Guid Id { get; set; }= Guid.NewGuid();
-    public string LastName { get; set; } = string.Empty;
-    public string FirstName { get; set; } = string.Empty;
-    public string? Patronymic { get; set; } = string.Empty;
-    public Gender Gender { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public required string LastName { get; set; }
+    public required string FirstName { get; set; }
+    public string? Patronymic { get; set; }
+    public required Gender Gender { get; set; }
 
     public string FullName => string.Join(" ",
         new[] { LastName, FirstName, Patronymic }

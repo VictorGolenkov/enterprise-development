@@ -2,96 +2,114 @@
 
 public class QueriesTests
 {
-    [Fact]
-    public void Test_1_MastersWithExperienceFiveYearsOrMore()
+    [Theory]
+    [InlineData("Сидорова", true)]
+    [InlineData("Кузнецов", false)]
+    [InlineData("Смирнов", true)]
+    [InlineData("Волкова", true)]
+    [InlineData("Морозов", false)]
+    [InlineData("Павлова", true)]
+    [InlineData("Семенов", false)]
+    [InlineData("Григорьева", true)]
+    [InlineData("Николаев", true)]
+    [InlineData("Алексеева", false)]
+    public void Test_1_MastersWithExperienceFiveYearsOrMore(string lastName, bool expected)
     {
         var result = TestData.Masters
             .Where(m => m.ExperienceYears >= 5)
-            .ToList();
+            .Any(m => m.LastName == lastName);
 
-        Assert.NotEmpty(result);
-        Assert.All(result, m => Assert.True(m.ExperienceYears >= 5));
+        Assert.Equal(expected, result);
     }
 
-    [Fact]
-    public void Test_2_MasterIdleWindows()
+    [Theory]
+    [InlineData("Сидорова", 4)]
+    [InlineData("Кузнецов", 1)]
+    [InlineData("Смирнов", 3)]
+    public void Test_2_MasterIdleWindows(string lastName, int expectedWindowsCount)
     {
-        var master = TestData.Masters[0];
-
         var masterAppointments = TestData.Appointments
-            .Where(a => a.Master.Id == master.Id)
+            .Where(a => a.Master.LastName == lastName)
             .OrderBy(a => a.AppointmentDate)
             .ToList();
 
-        var windows = new List<TimeSpan>();
-
-        for (int i = 1; i < masterAppointments.Count; i++)
+        var windowsLengths = new List<TimeSpan>();
+        for (int i = 0; i < masterAppointments.Count - 1; i++)
         {
-            var previousEnd = masterAppointments[i - 1].AppointmentDate.Add(masterAppointments[i - 1].Service.Duration);
-            var currentStart = masterAppointments[i].AppointmentDate;
+            var endOfCurrentAppointment = masterAppointments[i].EndAppointmentDate;
+            var startOfNextAppointment = masterAppointments[i + 1].AppointmentDate;
 
-            if (currentStart > previousEnd)
+            TimeSpan window = startOfNextAppointment - endOfCurrentAppointment;
+
+            if (window > TimeSpan.Zero)
             {
-                windows.Add(currentStart - previousEnd);
+                windowsLengths.Add(window);
             }
         }
 
-        Assert.NotEmpty(windows);
-        Assert.All(windows, w => Assert.True(w > TimeSpan.Zero));
-
-        Assert.Contains(TimeSpan.FromHours(2), windows);
+        Assert.Equal(expectedWindowsCount, windowsLengths.Count);
     }
 
     [Fact]
     public void Test_3_TopFivePopularServices()
     {
-        var result = TestData.Appointments
+        var popularServices = TestData.Appointments
             .GroupBy(a => a.Service.Name)
-            .OrderByDescending(g => g.Count())
+            .Select(g => (ServiceName: g.Key, Count: g.Count()))
+            .OrderByDescending(x => x.Count)
+            .ThenBy(x => x.ServiceName)
             .Take(5)
-            .Select(g => new { ServiceName = g.Key, Count = g.Count() })
             .ToList();
 
-        Assert.NotEmpty(result);
-        Assert.True(result.Count <= 5);
-
-        Assert.Equal("Стрижка", result.First().ServiceName);
+        var expected = new List<(string, int)>
+    {
+        ("Стрижка", 5),
+        ("Маникюр", 3),
+        ("Укладка", 2),
+        ("Барбершоп-бритье", 1),
+        ("Массаж лица", 1)
+    };
+        Assert.Equal(expected, popularServices);
     }
 
     [Fact]
     public void Test_4_RepeatAppointmentsLastMonth()
     {
-        var oneMonthAgo = DateTime.Today.AddMonths(-1);
-
-        var result = TestData.Appointments
-            .Where(a => a.IsRegularClient && a.AppointmentDate >= oneMonthAgo)
+        var repeats = TestData.Appointments
+            .Where(a =>
+            a.AppointmentDate >= DateTime.Today.AddMonths(-1) &&
+            a.AppointmentDate <= DateTime.Today)
             .GroupBy(a => a.Client)
-            .Select(g => new
-            {
-                ClientName = g.Key.FullName,
-                RepeatCount = g.Count()
-            })
+            .Where(g => g.Count() > 1)
+            .Select(g => (ClientName: g.Key.FullName, Count: g.Count()))
+            .OrderBy(x => x.ClientName)
             .ToList();
 
-        Assert.NotEmpty(result);
-        Assert.Contains(result, r => r.ClientName == "Иванов Иван Иванович");
-        Assert.All(result, r => Assert.True(r.RepeatCount >= 1));
+        var expected = new List<(string ClientName, int Count)>
+        {
+            ("Иванов Иван Иванович", 3),
+            ("Петрова Анна Сергеевна", 2)
+        };
+
+        Assert.Equal(expected, repeats);
     }
 
     [Fact]
     public void Test_5_ClientsWithMultipleMastersOrderedByBirthDate()
     {
         var result = TestData.Appointments
-            .GroupBy(a => a.Client)
-            .Where(g => g.Select(a => a.Master).Distinct().Count() > 1)
-            .Select(g => g.Key)
-            .OrderBy(c => c.BirthDate)
+            .GroupBy(a => a.Client, a => a.Master)
+            .Where(g => g.Distinct().Count() > 1)
+            .OrderBy(g => g.Key.BirthDate)
+            .Select(g => g.Key.FullName)
             .ToList();
 
-        Assert.NotEmpty(result);
-        Assert.Contains(result, c => c.LastName == "Иванов");
-        Assert.Contains(result, c => c.LastName == "Петрова");
+        var expected = new List<string>
+            {
+                "Петрова Анна Сергеевна",
+                "Иванов Иван Иванович"
+            };
 
-        Assert.True(result.First().BirthDate <= result.Last().BirthDate);
+        Assert.Equal(expected, result);
     }
 }

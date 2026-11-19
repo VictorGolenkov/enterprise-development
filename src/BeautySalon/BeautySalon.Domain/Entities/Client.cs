@@ -2,6 +2,6 @@
 
 public class Client : Person
 {
-    public string PhoneNumber { get; set; } = string.Empty;
-    public DateTime BirthDate { get; set; }
+    public required string PhoneNumber { get; set; }
+    public required DateTime BirthDate { get; set; }
 }

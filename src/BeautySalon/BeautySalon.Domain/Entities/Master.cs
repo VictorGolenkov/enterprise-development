@@ -1,8 +1,8 @@
 ﻿namespace BeautySalon.Domain.Entities;
 
-public class Master: Person
+public class Master : Person
 {
-    public string PassportNumber { get; set; } = string.Empty;
-    public string Specialization {  get; set; } = string.Empty;
-    public int ExperienceYears { get; set; }
+    public required string PassportNumber { get; set; }
+    public required string Specialization { get; set; }
+    public required int ExperienceYears { get; set; }
 }
