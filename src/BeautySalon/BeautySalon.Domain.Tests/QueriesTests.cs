@@ -102,14 +102,14 @@ public class QueriesTests : IClassFixture<TestDataFixture>
             a.AppointmentDate <= _fixture.BaseDate)
             .GroupBy(a => a.Client)
             .Where(g => g.Count() > 1)
-            .Select(g => (ClientName: g.Key.FullName, Count: g.Count()))
+            .Select(g => (ClientName: g.Key.FullName, Count: g.Count() - 1))
             .OrderBy(x => x.ClientName)
             .ToList();
 
         var expected = new List<(string ClientName, int Count)>
         {
-            ("Иванов Иван Иванович", 3),
-            ("Петрова Анна Сергеевна", 2)
+            ("Иванов Иван Иванович", 2),
+            ("Петрова Анна Сергеевна", 1)
         };
 
         Assert.Equal(expected, repeats);
