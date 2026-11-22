@@ -1,6 +1,4 @@
-﻿#pragma warning disable CS1591
-
-using BeautySalon.Domain.Entities;
+﻿using BeautySalon.Domain.Entities;
 using BeautySalon.Domain.Enums;
 
 namespace BeautySalon.Domain.Data;
@@ -15,11 +13,29 @@ public class TestDataFixture
     /// </summary>
     public DateTime BaseDate { get; } = new DateTime(2026, 11, 19, 14, 0, 0);
 
+    /// <summary>
+    /// Коллекция тестовых клиентов салона.
+    /// </summary>
     public List<Client> Clients { get; }
+
+    /// <summary>
+    /// Коллекция тестовых мастеров салона.
+    /// </summary>
     public List<Master> Masters { get; }
+
+    /// <summary>
+    /// Коллекция услуг, предоставляемых салоном.
+    /// </summary>
     public List<Service> Services { get; }
+
+    /// <summary>
+    /// Коллекция тестовых записей на услуги к мастерам.
+    /// </summary>
     public List<Appointment> Appointments { get; }
 
+    /// <summary>
+    /// Коллекция тестовых клиентов салона.
+    /// </summary>
     public TestDataFixture()
     {
 
