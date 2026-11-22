@@ -20,10 +20,10 @@ jobs:
         dotnet-version: '10.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore src/BeautySalon/BeautySalon.slnx
+      run: dotnet restore ./BeautySalon.slnx
 
     - name: Build
-      run: dotnet build src/BeautySalon/BeautySalon.slnx --no-restore --configuration Release
+      run: dotnet build ./BeautySalon.slnx --no-restore --configuration Release
 
     - name: Test
-      run: dotnet test --solution src/BeautySalon/BeautySalon.slnx --no-build --configuration Release
+      run: dotnet test --solution ./BeautySalon.slnx --no-build --configuration Release
