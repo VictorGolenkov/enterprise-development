@@ -5,15 +5,8 @@ namespace BeautySalon.Domain.Tests;
 /// <summary>
 /// Тесты, в соответствии с заданием.
 /// </summary>
-public class QueriesTests : IClassFixture<TestDataFixture>
+public class QueriesTests(TestDataFixture fixture) : IClassFixture<TestDataFixture>
 {
-    private readonly TestDataFixture _fixture;
-
-    public QueriesTests(TestDataFixture fixture)
-    {
-        _fixture = fixture;
-    }
-
     /// <summary>
     /// Вывести информацию о всех мастерах, стаж работы которых не менее 5 лет.
     /// </summary>
@@ -32,7 +25,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [InlineData("Алексеева", false)]
     public void Test_1_MastersWithExperienceFiveYearsOrMore(string lastName, bool expected)
     {
-        var result = _fixture.Masters
+        var result = fixture.Masters
             .Where(m => m.ExperienceYears >= 5)
             .Any(m => m.LastName == lastName);
 
@@ -51,7 +44,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [InlineData("Смирнов", 3)]
     public void Test_2_MasterIdleWindows(string lastName, int expectedWindowsCount)
     {
-        var masterAppointments = _fixture.Appointments
+        var masterAppointments = fixture.Appointments
             .Where(a => a.Master.LastName == lastName)
             .OrderBy(a => a.AppointmentDate)
             .ToList();
@@ -71,7 +64,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [Fact]
     public void Test_3_TopFivePopularServices()
     {
-        var popularServices = _fixture.Appointments
+        var popularServices = fixture.Appointments
             .GroupBy(a => a.Service.Name)
             .Select(g => (ServiceName: g.Key, Count: g.Count()))
             .OrderByDescending(x => x.Count)
@@ -96,10 +89,10 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [Fact]
     public void Test_4_RepeatAppointmentsLastMonth()
     {
-        var repeats = _fixture.Appointments
+        var repeats = fixture.Appointments
             .Where(a =>
-            a.AppointmentDate >= _fixture.BaseDate.AddMonths(-1) &&
-            a.AppointmentDate <= _fixture.BaseDate)
+            a.AppointmentDate >= fixture.BaseDate.AddMonths(-1) &&
+            a.AppointmentDate <= fixture.BaseDate)
             .GroupBy(a => a.Client)
             .Where(g => g.Count() > 1)
             .Select(g => (ClientName: g.Key.FullName, Count: g.Count() - 1))
@@ -121,7 +114,7 @@ public class QueriesTests : IClassFixture<TestDataFixture>
     [Fact]
     public void Test_5_ClientsWithMultipleMastersOrderedByBirthDate()
     {
-        var result = _fixture.Appointments
+        var result = fixture.Appointments
             .GroupBy(a => a.Client, a => a.Master)
             .Where(g => g.Distinct().Count() > 1)
             .OrderBy(g => g.Key.BirthDate)
