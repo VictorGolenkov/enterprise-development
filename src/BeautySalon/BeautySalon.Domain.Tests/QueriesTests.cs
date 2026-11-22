@@ -56,19 +56,11 @@ public class QueriesTests : IClassFixture<TestDataFixture>
             .OrderBy(a => a.AppointmentDate)
             .ToList();
 
-        var windowsLengths = new List<TimeSpan>();
-        for (int i = 0; i < masterAppointments.Count - 1; i++)
-        {
-            var endOfCurrentAppointment = masterAppointments[i].EndAppointmentDate;
-            var startOfNextAppointment = masterAppointments[i + 1].AppointmentDate;
-
-            TimeSpan window = startOfNextAppointment - endOfCurrentAppointment;
-
-            if (window > TimeSpan.Zero)
-            {
-                windowsLengths.Add(window);
-            }
-        }
+        var windowsLengths = masterAppointments
+            .Zip(masterAppointments.Skip(1),
+                (current, next) => next.AppointmentDate - current.EndAppointmentDate)
+            .Where(window => window > TimeSpan.Zero)
+            .ToList();
 
         Assert.Equal(expectedWindowsCount, windowsLengths.Count);
     }
