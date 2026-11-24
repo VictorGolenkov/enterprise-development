@@ -11,7 +11,7 @@ public class TestDataFixture
     /// <summary>
     /// Фиксированное время и дата, для детерминированности тестов.
     /// </summary>
-    public DateTime BaseDate { get; } = new DateTime(2026, 11, 19, 14, 0, 0);
+    public DateTime BaseDate { get; } = new DateTime(2026, 11, 19, 0, 0, 0);
 
     /// <summary>
     /// Коллекция тестовых клиентов салона.
@@ -396,7 +396,7 @@ public class TestDataFixture
             new Appointment
             {
                 Client = Clients[5],
-                Master = Masters[4],
+                Master = Masters[8],
                 Service = Services[5],
                 AppointmentDate = BaseDate.AddDays(-25).AddHours(10),
                 IsRegularClient = false
