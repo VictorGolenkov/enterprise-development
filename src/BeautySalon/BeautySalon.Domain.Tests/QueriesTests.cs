@@ -65,8 +65,8 @@ public class QueriesTests(TestDataFixture fixture) : IClassFixture<TestDataFixtu
     public void Test_3_TopFivePopularServices()
     {
         var popularServices = fixture.Appointments
-            .GroupBy(a => a.Service.Name)
-            .Select(g => (ServiceName: g.Key, Count: g.Count()))
+            .GroupBy(a => a.Service.Id)
+            .Select(g => (ServiceName: g.First().Service.Name, Count: g.Count()))
             .OrderByDescending(x => x.Count)
             .ThenBy(x => x.ServiceName)
             .Take(5)
@@ -93,9 +93,9 @@ public class QueriesTests(TestDataFixture fixture) : IClassFixture<TestDataFixtu
             .Where(a =>
             a.AppointmentDate >= fixture.BaseDate.AddMonths(-1) &&
             a.AppointmentDate <= fixture.BaseDate)
-            .GroupBy(a => a.Client)
+            .GroupBy(a => a.Client.Id)
             .Where(g => g.Count() > 1)
-            .Select(g => (ClientName: g.Key.FullName, Count: g.Count() - 1))
+            .Select(g => (ClientName: g.First().Client.FullName, Count: g.Count() - 1))
             .OrderBy(x => x.ClientName)
             .ToList();
 
@@ -115,10 +115,11 @@ public class QueriesTests(TestDataFixture fixture) : IClassFixture<TestDataFixtu
     public void Test_5_ClientsWithMultipleMastersOrderedByBirthDate()
     {
         var result = fixture.Appointments
-            .GroupBy(a => a.Client, a => a.Master)
-            .Where(g => g.Distinct().Count() > 1)
-            .OrderBy(g => g.Key.BirthDate)
-            .Select(g => g.Key.FullName)
+            .GroupBy(a => a.Client.Id)
+            .Where(g => g.Select(a => a.Master.Id).Distinct().Count() > 1)
+            .Select(g => g.First().Client)
+            .OrderBy(c => c.BirthDate)
+            .Select(c => c.FullName)
             .ToList();
 
         var expected = new List<string>
