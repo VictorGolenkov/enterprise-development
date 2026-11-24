@@ -40,8 +40,8 @@ public class TestDataFixture
     {
 
 
-        Clients = new List<Client>
-        {
+        Clients =
+        [
             new Client {
                 LastName = "Иванов",
                 FirstName = "Иван",
@@ -130,10 +130,10 @@ public class TestDataFixture
                 BirthDate = new DateTime(1997, 4, 8),
                 PhoneNumber = "000"
             }
-        };
+        ];
 
-        Masters = new List<Master>
-        {
+        Masters = 
+        [
             new Master
             {
                 LastName = "Сидорова",
@@ -234,10 +234,10 @@ public class TestDataFixture
                 Specialization = "Массажист",
                 ExperienceYears = 1
             }
-        };
+        ];
 
-        Services = new List<Service>
-        {
+        Services =
+        [
             new Service
             {
                 Name = "Стрижка",
@@ -308,10 +308,10 @@ public class TestDataFixture
                 Price = 800,
                 Duration = TimeSpan.FromMinutes(20)
             }
-        };
+        ];
 
-        Appointments = new List<Appointment>
-        {
+        Appointments =
+        [
             new Appointment
             {
                 Client = Clients[0],
@@ -433,6 +433,6 @@ public class TestDataFixture
                 AppointmentDate = BaseDate.AddDays(-6).AddHours(12),
                 IsRegularClient = false
             }
-        };
+        ];
     }
 }

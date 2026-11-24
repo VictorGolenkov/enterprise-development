@@ -72,7 +72,7 @@ public class QueriesTests(TestDataFixture fixture) : IClassFixture<TestDataFixtu
             .Take(5)
             .ToList();
 
-        var expected = new List<(string, int)>
+        var expected = new[]
     {
         ("Стрижка", 5),
         ("Маникюр", 3),
@@ -99,7 +99,7 @@ public class QueriesTests(TestDataFixture fixture) : IClassFixture<TestDataFixtu
             .OrderBy(x => x.ClientName)
             .ToList();
 
-        var expected = new List<(string ClientName, int Count)>
+        var expected = new[]
         {
             ("Иванов Иван Иванович", 2),
             ("Петрова Анна Сергеевна", 1)
@@ -122,7 +122,7 @@ public class QueriesTests(TestDataFixture fixture) : IClassFixture<TestDataFixtu
             .Select(c => c.FullName)
             .ToList();
 
-        var expected = new List<string>
+        var expected = new[]
             {
                 "Петрова Анна Сергеевна",
                 "Иванов Иван Иванович"
